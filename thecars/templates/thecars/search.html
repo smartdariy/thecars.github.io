@@ -1,0 +1,35 @@
+{% extends 'thecars/base.html' %}
+{% load static %}
+{% block title %}
+Search by "{{ match }}"
+{% endblock %}
+
+{% block content %}
+
+<div class="row my-3 justify-content-between">
+
+<div class="col-3">
+    <h2 class="text-secondary">Search by "{{ match }}"</h2>
+    <h3 class="text-primary">Car ({{ car_list|length}}):</h3>
+</div>
+
+
+{% for car in car_list %}
+
+<div class="row my-2 justify-content-center">
+    <div class="col-2 me-5">
+        <img src="{{ car.photo.url }}" width="350">
+    </div>
+    <div class="col-4 my-4 mx-5">
+        <a href="{{ car.url }}">
+            <h4 class="text-black mx-5">{{ car }}</h4>
+            <h3 class="text-success mx-5">{{ car.price }}$</h3>
+        </a>
+    </div>
+</div>
+
+
+{% endfor %}
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'thecars/base.html' %}
+{% load static %}
+
+{% block title %}
+IMDb
+{% endblock %}
+
+
+{% block content %}
+
+<h3 class="text-dark">Authentication</h3>
+
+<form action="{% url 'thecars:login-user' %}" method="POST">
+    {% csrf_token %}
+    <table class="text-dark">
+        <tr>
+            <td>
+                login
+            </td>
+            <td>
+                <input type="text" name="username">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                password
+            </td>
+            <td>
+                <input type="password" name="password">
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="log in">
+    <input type="hidden" name="next" value="{{ next }}">
+    {% if message %}
+    <p class="text-warning">{{ message }}</p>
+    {% endif %}
+</form>
+
+
+{% endblock %}

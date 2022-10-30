@@ -1,0 +1,37 @@
+{% extends 'thecars/base.html' %}
+{% load static %}
+{% block title %}
+{{ object }}
+{% endblock %}
+
+{% block content %}
+<h3 class="text-dark">{{ object }}</h3>
+<div class="col-3">
+    <h4 class="text-secondary text-start ms-4 p-1">
+        <img src="{% static 'thecars/img/star.png' %}" width="20">
+        {{ object.rating }}
+    </h4>
+</div>
+
+<div class="row my-3 justify-content-between">
+    <div class="col-3">
+        <img src="{{ object.photo.url }}" class="img-fluid rounded mb-2" width="250px">
+    </div>
+
+    <div class="col-8 mb-5">
+        <h1 class="text-primary">This Brand Cars:</h1>
+    {% for car in brand.cars.all %}
+        <div class="col-7">
+            <a href="{{ car.url }}" class="text-dark text-decoration-none">
+                <img src="{{ car.photo.url }}" class="img-fluid" width="300">
+                <h5>{{ car.name }}</h5>
+            </a>
+        </div>
+    <div class="col-5">
+        <h5 class="text-success">{{ car.price }}$</h5>
+    </div>
+        {% endfor %}
+</div>
+</div>
+
+{% endblock %}

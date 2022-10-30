@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'thecars/css/custom.css' %}">
+    <link rel="shortcut icon" href="{% static 'thecars/img/car.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="navbar-wrapper">
+        <div class="container">
+            <nav class="navbar" style="background-color: lightskyblue;">
+                <div class="row mx-5 my-0 justify-content-between">
+                    <div class="col-1">
+                        <a href="{% url 'thecars:index' %}" class="text-dark text-decoration-none">
+                            <img src="{% static 'thecars/img/car.png' %}"
+                            class="w-75">
+                        <h4 class="text-light" style="white-space: nowrap;">The C.A.R.S.</h4>
+                        </a>            
+                </div> 
+            <div class="col-3 pt-4">
+                <form action="{% url 'thecars:search' %}" method="post" style="width: 400px">
+                    {% csrf_token %}
+                    <input type="text" name="match" placeholder="Search Cars" class="form-control">
+                </form>
+            </div> 
+        <div class="col-1">
+            <p class="text-light">
+                {% if user.is_authenticated %}
+                <img src="{{ user.addon.userpic.url }}" width="50">
+                <br>
+                {{ user.username }}
+                <br>
+                <a class="text-danger" href="{% url 'thecars:logout-user' %}">Log Out</a>
+                {% else %}
+                <a href="{% url 'thecars:login-page' %}">Log In</a>
+                {% endif %}
+            </p>   
+        </div>
+        <div class="col-1">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="container">
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'thecars:car-list' %}" style="white-space: nowrap;">All Cars</a>
+                          </li>
+                          <hr>
+                          <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'thecars:index' %}">Home</a>
+                          </li>
+                          <hr>
+                          <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'thecars:search-page' %}" style="white-space: nowrap;">Search Cars</a>
+                          </li>
+                          <hr>
+                          <li><a href=""></a>
+                          </li>
+                          <li><a href="{% url 'thecars:logout-user' %}" class="text-danger" style="white-space: nowrap;">log out</a>
+                          </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+          </nav>        
+          <hr>
+        {% block content %}{% endblock %}
+    </div>
+    </div>
+</div>
+</body>
+</html>

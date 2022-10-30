@@ -1,0 +1,78 @@
+{% extends 'thecars/base.html' %}
+{% load static %}
+{% block title %}
+Find Cars
+{% endblock %}
+
+{% block content %}
+<main role="main" class="container">
+<div class="row my-3 justify-content-between">
+    <div class="col-3">
+        <h1>Let's find cars!</h1>
+    </div>
+<div class="col-8">
+<form method="GET" action=".">
+    
+    <div class="form-group col-md-4">
+        <label for="brand">Choose Brand</label>
+        <select id="brand" class="form-control" name="brand">
+          <option selected>Choose one brand</option>
+          {% for br in brands %}
+          <option value="{{ br }}">{{ br }}</option>
+          {% endfor %}
+        </select>
+      </div>
+  </select>
+
+
+<div class="form-group col-md-4">
+    <label for="type">Choose Type</label>
+    <select id="type" class="form-control" name="type">
+      <option selected>Choose one type</option>
+      {% for tp in types %}
+      <option value="{{ tp }}">{{ tp }}</option>
+      {% endfor %}
+    </select>
+  </div>
+</select>
+
+
+<div class="form-group">
+    <div class="form-group col-md-2 col-lg-4">
+      <label for="carPriceMin">Minimum Car Price</label>
+      <input type="number" min=0 class="form-control" id="carPriceMin" placeholder="may be 0?" name="car_price_min">
+    </div>
+    <div class="form-group col-md-2 col-lg-4">
+      <label for="carPricetMax">Maximum Car Price</label>
+      <input type="number" min=0 class="form-control" id="carPricetMax" placeholder="may be 50000?" name="car_price_max">
+    </div>
+</div>
+<div class="form-group">
+    <div class="form-group col-md-2 col-lg-4">
+      <label for="carYearMin">Minimum Car Year</label>
+      <input type="number" min=0 class="form-control" id="carYearMin" placeholder="not less than 2012" name="car_year_min">
+    </div>
+    <div class="form-group col-md-2 col-lg-4">
+      <label for="carYeartMax">Maximum Car Year</label>
+      <input type="number" min=0 class="form-control" id="carPricetMax" placeholder="not more than 2022" name="car_year_max">
+    </div>
+</div>
+    <button type="submit" class="btn btn-primary" >Search</button>
+</div>
+
+        
+
+</form>
+</main>
+<div class="row m-1 p-2" style="overflow: hidden; width: 1500px;">
+    {% for car in car_list %}
+    <div class="col-4">
+        <a href="{{ car.url }}" class="text-decoration-none">
+        <img src="{{ car.photo.url }}" class="me-4" style="width: 300px; height: 180px; object-fit: cover;">       
+            <h5 class="text-dark mx-5">{{ car.name }}</h5>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+</body>

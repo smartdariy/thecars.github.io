@@ -1,0 +1,84 @@
+{% extends 'thecars/base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row my-3 justify-content-between">
+        <div class="col-1">
+            <a href="{% url 'thecars:car-list' %}" class="text-decoration-underline">
+                <h2 class="text-primary" style="white-space: nowrap;">All cars</h2>
+            </a>
+        </div>
+        <div class="col-8">
+            <h2 class="text-black" style="white-space: nowrap;">The best cars:</h2>
+        </div>
+    </div>
+     </div>
+     <div class="row" style="overflow: hidden; width: 1500px;">
+        {% for car in best_cars %}
+        <div class="col-4">
+            <a href="{{ car.url }}" class="text-decoration-none">
+            <img src="{{ car.photo.url }}" class="me-4" style="width: 300px; height: 180px; object-fit: cover;">       
+                <h5 class="text-dark mx-5">{{ car.name }}</h5>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+
+
+<div class="container">
+    <div class="row my-3 justify-content-between">
+        <div class="col-1">
+            <a href="{% url 'thecars:type-list' %}" class="text-decoration-underline">
+                <h2 class="text-primary" style="white-space: nowrap;">All car types</h2>
+            </a>
+        </div>
+        <div class="col-8">
+            <h2 class="text-black" style="white-space: nowrap;">The best car types:</h2>
+        </div>
+    </div>
+     </div>
+<div class="row" style="overflow: hidden; width: 1500px;">
+    {% for type in best_types %}
+    <div class="col-4">
+        <a href="{{ type.url }}" class="text-decoration-none"> 
+        <img src="{{ type.photo.url }}" class="me-4" style="width: 300px; height: 180px; object-fit: cover;">      
+            <h5 class="text-dark ms-5">{{ type.name }}</h5>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+</div>
+
+<hr>
+
+<div class="container">
+<div class="row my-3 justify-content-between">
+    <div class="col-1">
+        <a href="{% url 'thecars:brand-list' %}" class="text-decoration-underline">
+            <h2 class="text-primary" style="white-space: nowrap;">All car brand</h2>
+        </a>
+    </div>
+    <div class="col-8">
+        <h2 class="text-black" style="white-space: nowrap;">The best car brands:</h2>
+    </div>
+</div>
+ </div>
+    <div class="row" style="overflow: hidden; width: 1500px;">
+        {% for brand in best_brands %}
+        <div class="col-4">
+            <a href="{{ brand.url }}" class="text-decoration-none">
+            <img src="{{ brand.photo.url }}" style="width: 180px; height: 180px; object-fit: cover;">       
+                <h5 class="text-dark mx-5">{{ brand.name }}</h5>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <hr style="width: 2; color: solid black;">
+    </div>
+
+{% endblock %}

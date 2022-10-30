@@ -1,0 +1,86 @@
+{% extends 'thecars/base.html' %}
+{% load static %}
+{% block title %}
+{{ object }}
+{% endblock %}
+
+{% block content %}
+<div class="row my-3 justify-content-between">
+    <div class="col-3 mx-2">
+        <h3 class="text-dark" style="opacity: 90% ;">
+            {{ object }}            
+            <img src="{% static 'thecars/img/view.png' %}" width="35">
+            {{ car.views }}
+        </h3>
+            <img src="{{ object.photo.url }}" class="img-fluid rounded"> 
+        <h2 class="text-success">
+            price: {{ car.price }}$
+        </h2>
+    </div>
+    <div class="col-8">
+            {% if car.review %}
+            <h2 class="text-left">
+                Car Review:
+            </h2>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ car.review }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            {% endif %}
+    </div>
+    <hr>
+    <div class="col-10 mx-5">
+        <h1 class="text-center text-black">
+            Characteristics:
+        </h1>
+    </div>
+<div class="row">
+    <div style="border: 1px solid darkblue;">
+        <h4 style="left: 50px;">
+            <p>Year:  {{ car.year }}</p>
+            <hr style="border: 1px solid darkblue;">
+            <p class="my-2">Rating:  {{ car.rating }}
+                <img src="{% static 'thecars/img/star.png' %}" width="20px">
+            </p>
+            <hr style="border: 1px solid darkblue;">
+            <p>Price:  {{ car.price }}$</p>
+            <hr style="border: 1px solid darkblue;">
+            <p>Type:  {{ car.type }}</p>
+            <hr style="border: 1px solid darkblue;">
+            <p>Brand:  {{ car.brand }}</p>
+            <hr style="border: 1px solid darkblue;">
+            <p>Max speed:  {{ car.max_speed }} km/h</p>
+        </h4>
+
+    </div>
+</div>
+    </div>
+    </div>
+    </div>
+</div>
+    <div class="col-11 text-center">
+        <h3>Did u like this car?</h3>
+        <button class="btn btn-success">
+            <a href="https://{{ car.buy }}" target="_blank" class="text-decoration-none">
+                <h1 class="text-light">Buy it</h1>
+            </a>
+        </button>
+        
+    <div class="col-11 text-end">
+    <h3 class="text-dark">Comments</h3>
+    {% for comment in car.comments.all %}
+    <p class="text-dark">
+        <img src="{{ comment.author.addon.userpic.url }}" width="40">
+        {{ comment.text }}
+        <span class="text-secondary">{{ comment.published|timesince }}</span>
+    </p>
+    {% empty %}
+    <p class="text-dark">leave first comment</p>
+    {% endfor %}
+    {% if user.is_authenticated %}
+    <form action="{% url 'thecars:comment-add' car.id %}"
+    method="post" class="text-dark">
+        {% csrf_token %}
+        {{ comment_form }}
+        <input type="submit" value="Add">
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'thecars/base.html' %}
+{% load static %}
+
+{% block title %}
+All Types
+{% endblock %}
+
+
+{% block content %}
+
+<h3 class="text-black">All Types</h3>
+
+{% for type in object_list %}
+<div class="row my-2 justify-content-center p-3">
+    <div class="col-2">
+        <img src="{{ type.photo.url }}" class="w-100">
+    </div>
+    <div class="col-4">
+        <a href="{{ type.url }}" class="text-decoration-none">
+            <h4 class="text-black">{{ type }}</h4>
+        </a>
+        <h4 class="text-secondary">
+            {{ type.rating }}
+            <img src="{% static 'thecars/img/star.png' %}" width="20">
+        </h4>
+    </div>
+</div>
+
+{% endfor %}
+
+<div class="row mt-5 justify-content-center">
+    <div class="col-2 text-dark">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="text-dark">previous</a>
+        {% endif %}
+
+    </div>
+    <div class="col-2 text-dark">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </div>
+    <div class="col-2 text-dark">
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="text-dark">next</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

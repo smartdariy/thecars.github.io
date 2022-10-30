@@ -1,0 +1,11 @@
+a {
+    text-decoration: none;
+}
+
+form.w3layouts-newsletter {
+    border-top: 1px solid #ddd;
+}
+
+.w3layouts-newsletter input[type="email"] {
+    padding: 0.6em 1em;
+    font-size: 15px;
